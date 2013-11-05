@@ -1,5 +1,5 @@
 {
-	"name" : "rottingham/ProductValidation",
+	"name" : "rottingham/product-code-validation",
 	"type" : "library",
 	"description" : "Product UPC, EAN and ISBN Validator",
 	"keywords" : ["upc", "ean", "isbn"],
