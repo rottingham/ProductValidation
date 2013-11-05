@@ -15,7 +15,7 @@ Simply import the `ProductValidator.class.inc` main class file if you are not ut
     
 To use the validator, you can simply call its `checkCode($code)` method:
     
-    $result = Productvalidator\ProductValidator::checkCode('1560213639');
+    $result = ProductValidator\ProductValidator::checkCode('1560213639');
     
     var_dump($result);
     
