@@ -3,9 +3,9 @@ ProductValidation
 
 ProductValidator is a simply utility for Shopping cart software or custom projects to validate product codes.
 
-Supports UPC-A, EAN13 and ISBN10/ISBN13.
+Supports UPC-A, UPC-E 6, 7 and 8, EAN13 and ISBN10/ISBN13.
 
-This software is free to use, distribute and change as you see fit. 
+This software is free to use, distribute and change as you see fit according to the MIT Variant license.
 
 #### Sample Usage
 
