@@ -82,12 +82,12 @@ class ProductValidator {
 		} else if ($upcEValid) {
 			$type = 'UPC-E - ' . strlen($code);
 			$checkDigit = UpcEValidator\UpcEValidator::getCheckDigit($code);
-		} else if ($isbnValid && !$eanValid) {
-			$type = 'ISBN';
-			$checkDigit = IsbnValidator\IsbnValidator::getCheckDigit($code);
 		} else if ($eanValid) {
 			$type = 'EAN';
 			$checkDigit = EanValidator\EanValidator::getCheckDigit($code);
+		} else if ($isbnValid && !$eanValid) {
+			$type = 'ISBN';
+			$checkDigit = IsbnValidator\IsbnValidator::getCheckDigit($code);
 		} else {
 			return false;
 		}
