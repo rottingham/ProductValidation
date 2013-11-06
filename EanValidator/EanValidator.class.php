@@ -78,7 +78,7 @@ class EanValidator {
 		$total = ($evenSum * 3) + $oddSum;
 		$checkDigit = (ceil($total / 10) * 10) - $total;
 
-		return $checkDigit;
+		return intval($checkDigit);
 	}
 
 }
