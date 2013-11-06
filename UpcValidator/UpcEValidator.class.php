@@ -1,18 +1,22 @@
 <?
-namespace ProductValidator\UpcValidator;
+namespace ProductValidator\UpcEValidator;
+require_once __DIR__ . '/UpcEExpander.class.php';
+require_once __DIR__ . '/UpcESupressor.class.php';
 require_once __DIR__ . '/UpcException.class.php';
 
 use ProductValidator\UpcException as UpcException;
 
 /**
- * UPC Validator
+ * UPC-E (GTIN12) Validator
  *
  * Validates a given string to ensure it follows the
- * UPC (Universal Product Code) 12 digit UPC-A Standard.
+ * UPC (Universal Product Code) 12 digit UPC-E Standard.
  *
  * Author: Ralph Brickley <brickleyralp@gmail.com>
  */
-class UpcValidator {
+class UpcEValidator {
+
+
 
 	/**
 	 * Validate
@@ -21,29 +25,28 @@ class UpcValidator {
 	 * matches.
 	 *
 	 * @param string $upc UPC to be inspected
-	 * @throws UpcException If the UPC value is less than 12 digits.
-	 * @return Returns TRUE if the UPC matches the UPC standard,
+	 * @throws UpcException If the UPC value is less than 6 digits or more than 12
+	 * @return Returns TRUE if the UPC matches the UPC-E (GTIN12) standard,
 	 * FALSE otherwise.
 	 */
 	public static function validate($upc) {
 		$upc = trim($upc);
-		$length = strlen($upc);
 
-		// Attempt to validate a UPC-E Code
-		if ($length > 12 || $length < 12) {
-			throw new UpcException\UpcException('UPC Value is more than 12 digits in length. UPC: ' .
-				$upc . ' ( length = '.strlen($upc).')',
-				UpcException\UpcException::CODE_INVALID);
-		}
 
 		if (!is_numeric($upc)) {
 			throw new UpcException\UpcException('UPC Value can only contain numbers. UPC: ' .
 				$upc, UpcException\UpcException::CODE_CONTAINS_CHARACTERS);
 		}
 
-		// If the UPC is 6, 7 or 8 digits, validate as UPC-E
+		// Expand UPC
+		$upc = UpcEExpander::expand($upc);
+		$length = strlen($upc);
 
-		$checkDigit = UpcValidator::getCheckDigit($upc);
+		if (!$upc) {
+			return false;
+		}
+
+		$checkDigit = UpcEValidator::getCheckDigit($upc);
 
 		return intval($upc[$length-1]) === intval($checkDigit);
 	}

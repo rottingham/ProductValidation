@@ -1,6 +1,6 @@
 <?
 
-require_once __DIR__ . '/../ProductValidator.class.inc';
+require_once __DIR__ . '/../ProductValidator.class.php';
 
 $upc = '748196000441';
 $ean = '9781560213635';

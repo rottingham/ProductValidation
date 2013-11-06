@@ -3,10 +3,12 @@
 namespace ProductValidator;
 
 require_once __DIR__ . '/UpcValidator/UpcValidator.class.php';
+require_once __DIR__ . '/UpcValidator/UpcEValidator.class.php';
 require_once __DIR__ . '/EanValidator/EanValidator.class.php';
 require_once __DIR__ . '/IsbnValidator/IsbnValidator.class.php';
 
 use ProductValidator\UpcValidator as UpcValidator;
+use ProductValidator\UpcEValidator as UpcEValidator;
 use ProductValidator\EanValidator as EanValidator;
 use ProductValidator\IsbnValidator as IsbnValidator;
 
@@ -42,11 +44,18 @@ class ProductValidator {
 	public static function checkCode($code) {
 		$isbn = array();
 		$upcValid = false;
+		$upcEValid = false;
 		$eanValid = false;
 		$isbnValid = false;
 
 		try {
-			$upcValid = ProductValidator::checkUpc($code);
+			$upcValid = ProductValidator::checkUpcA($code);
+		} catch (UpcException\UpcException $e) {
+
+		}
+
+		try {
+			$upcEValid = ProductValidator::checkUpcE($code);
 		} catch (UpcException\UpcException $e) {
 
 		}
@@ -68,8 +77,11 @@ class ProductValidator {
 
 		// UPC Code
 		if ($upcValid) {
-			$type = 'UPC';
+			$type = 'UPC-A';
 			$checkDigit = UpcValidator\UpcValidator::getCheckDigit($code);
+		} else if ($upcEValid) {
+			$type = 'UPC-E - ' . strlen($code);
+			$checkDigit = UpcEValidator\UpcEValidator::getCheckDigit($code);
 		} else if ($isbnValid && !$eanValid) {
 			$type = 'ISBN';
 			$checkDigit = IsbnValidator\IsbnValidator::getCheckDigit($code);
@@ -91,11 +103,21 @@ class ProductValidator {
 	/**
 	 * Check UPC Code
 	 *
-	 * @param string $code UPC Code to validate
+	 * @param string $code UPC-E Code to validate
 	 * @return Returns TRUE if the UPC validates, otherwise FALSE
 	 */
-	public static function checkUpc($code) {
+	public static function checkUpcA($code) {
 		return UpcValidator\UpcValidator::validate($code);
+	}
+
+	/**
+	 * Check UPC-E Code
+	 *
+	 * @param string $code UPC-A Code to validate
+	 * @return Returns TRUE if the UPC validates, otherwise FALSE
+	 */
+	public static function checkUpcE($code) {
+		return UpceValidator\UpceValidator::validate($code);
 	}
 
 	/**
