@@ -1,6 +1,6 @@
 <?
 namespace ProductValidator\UpcValidator;
-require_once __DIR__ . '/UpcException.class.inc';
+require_once __DIR__ . '/UpcException.class.php';
 
 use ProductValidator\UpcException as UpcException;
 

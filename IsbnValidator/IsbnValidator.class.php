@@ -1,6 +1,6 @@
 <?
 namespace ProductValidator\IsbnValidator;
-require_once __DIR__ . '/IsbnException.class.inc';
+require_once __DIR__ . '/IsbnException.class.php';
 
 use ProductValidator\IsbnException as IsbnException;
 /**

@@ -1,6 +1,6 @@
 <?
 namespace ProductValidator\EanValidator;
-require_once __DIR__ . '/EanException.class.inc';
+require_once __DIR__ . '/EanException.class.php';
 
 use ProductValidator\EanException as EanException;
 
