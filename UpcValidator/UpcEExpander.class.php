@@ -1,6 +1,7 @@
 <?
 namespace ProductValidator\UpcEValidator;
 require_once __DIR__ . '/UpcException.class.php';
+require_once __DIR__ . '/UpcValidator.class.php';
 
 use ProductValidator\UpcException as UpcException;
 
@@ -70,7 +71,7 @@ class UpcEExpander {
 		$last = substr($upc, 0, 1);
 
 		// Discard literal last digit
-		$upc = substr($upc, 0, 6);
+		$upc = substr($upc, 1, 6);
 
 		return UpcEExpander::createUpcA($upc, $last);
 	}
@@ -80,19 +81,28 @@ class UpcEExpander {
 	 *
 	 * Expand a 8-digit UPC-E code to UPC-A 12 digit code.
 	 * The first digit becomes the UPC-E Check Number and then the
-	 * first and last digits are stripped.
+	 * first and last digits are stripped. The last digit is then
+	 * re-appended as the check digit;
 	 *
 	 * @param string $upc UPC-E Code to expand
 	 * @return Returns the expanded UPC code
 	 */
 	private static function expand8($upc) {
-		// 7 Digit UPC-E uses the first digit as the UPC-E Check Number (normally the last digit)
-		$last = substr($upc, 0, 1);
+		// Get literal first and last digits
+		$first = substr($upc, 0, 1);
+		$last = substr($upc, 7, 1);
 
-		// Discard literal last digit
+		// Strip UPC to middle 6 digits
 		$upc = substr($upc, 1, 6);
 
-		return UpcEExpander::createUpcA($upc, $last);
+		// Create UPC from 6 digit value
+		$upc = UpcEExpander::createUpcA($upc, $last, $last);
+
+		// Get new check digit and append
+		$checkDigit = \ProductValidator\UpcValidator\UpcValidator::getCheckDigit($upc);
+		$upc = substr($upc, 0, 11) . $checkDigit;
+
+		return $upc;
 	}
 
 	/**
@@ -104,7 +114,7 @@ class UpcEExpander {
 	 * @param integer $parityNumber Parity number to prepend
 	 * @return Returns the 12-Digit UPC-A code
 	 */
-	 public static function createUpcA($upcE, $lastDigit) {
+	 public static function createUpcA($upcE, $lastDigit, $checkDigit = null) {
 		$parity = UpcEExpander::getParity($upcE);
 
 		switch ($lastDigit) {
@@ -121,7 +131,7 @@ class UpcEExpander {
 				$upc = $upcE[0] . $upcE[1] . $upcE[2] . '00000' . $upcE[3] . $upcE[4];
 				break;
 			case 4:
-				$upc = $upcE[0] . $upcE[1] . $upcE[2] . $upcE[3] . '00000' . $upcE[4];
+				$upc = $upcE[0] . $upcE[1] . $upcE[2] . $upcE[3] . $upcE[4] . '0000' . $upcE[5];
 				break;
 			case 5:
 				$upc = $upcE[0] . $upcE[1] . $upcE[2] . $upcE[3] . $upcE[4] . '0000';
@@ -140,7 +150,9 @@ class UpcEExpander {
 				break;
 		}
 
-		return $parity['parity'] . $upc . $parity['checkDigit'];
+		$upcA = $parity['parity'] . $upc . $parity['checkDigit'];
+
+		return $upcA;
 	}
 
 	/**

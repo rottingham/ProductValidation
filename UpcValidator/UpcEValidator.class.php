@@ -32,7 +32,6 @@ class UpcEValidator {
 	public static function validate($upc) {
 		$upc = trim($upc);
 
-
 		if (!is_numeric($upc)) {
 			throw new UpcException\UpcException('UPC Value can only contain numbers. UPC: ' .
 				$upc, UpcException\UpcException::CODE_CONTAINS_CHARACTERS);
@@ -47,7 +46,6 @@ class UpcEValidator {
 		}
 
 		$checkDigit = UpcEValidator::getCheckDigit($upc);
-
 		return intval($upc[$length-1]) === intval($checkDigit);
 	}
 

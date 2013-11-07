@@ -4,6 +4,7 @@ namespace ProductValidator;
 
 require_once __DIR__ . '/UpcValidator/UpcValidator.class.php';
 require_once __DIR__ . '/UpcValidator/UpcEValidator.class.php';
+require_once __DIR__ . '/UpcValidator/UpcEExpander.class.php';
 require_once __DIR__ . '/EanValidator/EanValidator.class.php';
 require_once __DIR__ . '/IsbnValidator/IsbnValidator.class.php';
 
@@ -81,6 +82,7 @@ class ProductValidator {
 			$checkDigit = UpcValidator\UpcValidator::getCheckDigit($code);
 		} else if ($upcEValid) {
 			$type = 'UPC-E - ' . strlen($code);
+			$code = UpcEValidator\UpcEExpander::expand($code);
 			$checkDigit = UpcEValidator\UpcEValidator::getCheckDigit($code);
 		} else if ($eanValid) {
 			$type = 'EAN';
