@@ -30,8 +30,14 @@ class UpcValidator {
 		$length = strlen($upc);
 
 		// Attempt to validate a UPC-E Code
-		if ($length > 12 || $length < 12) {
+		if ($length > 12) {
 			throw new UpcException\UpcException('UPC Value is more than 12 digits in length. UPC: ' .
+				$upc . ' ( length = '.strlen($upc).')',
+				UpcException\UpcException::CODE_INVALID);
+		}
+
+		if ($length < 12) {
+			throw new UpcException\UpcException('UPC Value is less than 12 digits in length. Try using UpcEvalidator. UPC: ' .
 				$upc . ' ( length = '.strlen($upc).')',
 				UpcException\UpcException::CODE_INVALID);
 		}

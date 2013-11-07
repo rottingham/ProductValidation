@@ -15,5 +15,5 @@ $upcE8 = '10055564';
 //$code = UpcEValidator\UpcEExpander::expand($upcE6);
 //var_dump($code);
 
-$code = UpcEValidator\UpcEExpander::expand($upcE8);
+$code = UpcEValidator\UpcEExpander::expand('049871');
 var_dump($code);
