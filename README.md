@@ -9,6 +9,8 @@ This software is free to use, distribute and change as you see fit according to 
 
 **Composer Ready**
 
+Available on Packagist: https://packagist.org/packages/rottingham/product-code-validation
+
 #### Sample Usage
 
 Simply import the `ProductValidator.class.inc` main class file if you are not utilizing auto loaders.
