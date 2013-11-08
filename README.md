@@ -7,6 +7,8 @@ Supports UPC-A, UPC-E 6, 7 and 8, EAN13 and ISBN10/ISBN13.
 
 This software is free to use, distribute and change as you see fit according to the MIT Variant license.
 
+**Composer Ready**
+
 #### Sample Usage
 
 Simply import the `ProductValidator.class.inc` main class file if you are not utilizing auto loaders.
