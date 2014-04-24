@@ -16,7 +16,7 @@ $upcE8Normal = '10055564';
 //$code = ProductValidator\ProductValidator::checkCode($upcE6Normal);
 //var_dump($code);
 
-$code = ProductValidator\ProductValidator::checkCode('004100009871');
+$code = ProductValidator\ProductValidator::checkCode('012800000890');
 var_dump($code);
 
 

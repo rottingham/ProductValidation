@@ -93,7 +93,7 @@ class UpcEValidator {
 
 		$totalSum = $evenSum + ($oddSum * 3);
 		$modulo10 = $totalSum % 10;
-		$checkDigit = 10 - $modulo10;
+		$checkDigit = ($modulo10 != 0) ? 10 - $modulo10 : $modulo10;
 
 		return $checkDigit;
 	}
