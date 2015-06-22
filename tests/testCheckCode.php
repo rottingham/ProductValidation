@@ -1,5 +1,4 @@
-<?
-
+<?php
 require_once __DIR__ . '/../ProductValidator.class.php';
 
 $upc = '748196000441';

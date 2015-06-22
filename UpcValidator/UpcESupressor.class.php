@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace ProductValidator\UpcEValidator;
 require_once __DIR__ . '/UpcException.class.php';
 

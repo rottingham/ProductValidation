@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace ProductValidator\EanValidator;
 require_once __DIR__ . '/EanException.class.php';
 

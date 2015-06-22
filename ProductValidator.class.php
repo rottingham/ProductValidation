@@ -1,5 +1,4 @@
-<?
-
+<?php
 namespace ProductValidator;
 
 require_once __DIR__ . '/UpcValidator/UpcValidator.class.php';
