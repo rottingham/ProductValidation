@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace ProductValidator\UpcEValidator;
 require_once __DIR__ . '/UpcEExpander.class.php';
 require_once __DIR__ . '/UpcESupressor.class.php';

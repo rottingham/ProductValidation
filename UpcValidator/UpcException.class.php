@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace ProductValidator\UpcException;
 
 /**

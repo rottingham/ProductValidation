@@ -1,5 +1,4 @@
-<?
-
+<?php
 // Load Product Validator
 // Recommended: Use Auto Loader
 require_once __DIR__ . '/../ProductValidator.class.php';
